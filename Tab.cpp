@@ -88,6 +88,25 @@ public:
         }
         cout << endl;
     }
+
+    void moveNext()
+    {
+        if (currentPage->next == nullptr)
+        {
+            cout << "You are at the last Page." << endl;
+        }
+        else
+            currentPage = currentPage->next;
+    }
+    void moveBack()
+    {
+        if (currentPage->prev == nullptr)
+        {
+            cout << "You are at the first Page." << endl;
+        }
+        else
+            currentPage = currentPage->prev;
+    }
 };
 
 struct NodeTab
@@ -177,6 +196,23 @@ public:
         }
         cout << endl;
     }
+
+    void moveNext()
+    {
+        if (currentTab->next == nullptr)
+        {
+            cout << "You are at the last Tab." << endl;
+        }
+        else
+            currentTab = currentTab->next;
+    }
+    void moveBack()
+    {
+        if (currentTab->prev == nullptr)
+            cout << "You are at the first Tab." << endl;
+        else
+            currentTab = currentTab->prev;
+    }
 };
 
 int main()
@@ -188,7 +224,7 @@ int main()
     cout << tab1.currentPage << endl;
     tab1.addTail("www.facebook.com");
     cout << tab1.currentPage << endl;
-    tab1.display();
+    // tab1.display();
 
     Tab tab2;
     tab2.addTail("www.google.com");
@@ -197,12 +233,22 @@ int main()
     cout << tab2.currentPage << endl;
     tab2.addTail("www.facebook.com");
     cout << tab2.currentPage << endl;
-    tab2.display();
+    // tab2.display();
 
     Window w1;
     w1.addTail(tab1);
     w1.addTail(tab2);
     w1.display();
+    cout << w1.currentTab->tab.currentPage << endl;
+    w1.moveBack();
+    cout << w1.currentTab->tab.currentPage << endl;
+    w1.moveNext();
+    cout << w1.currentTab->tab.currentPage << endl;
+    w1.currentTab->tab.moveBack();
+    cout << w1.currentTab->tab.currentPage << endl;
+    w1.currentTab->tab.moveNext();
+    cout << w1.currentTab->tab.currentPage << endl;
+    
 
     return 0;
 }
