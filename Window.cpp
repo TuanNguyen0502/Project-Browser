@@ -1,26 +1,25 @@
 #include <iostream>
 using namespace std;
-#include "NodePage.cpp"
+#include "NodeTab.cpp"
 
-class Tab
+class Window
 {
 public:
-    NodePage *head;
-    NodePage *tail;
-    NodePage *currentPage;
+    NodeTab *head;
+    NodeTab *tail;
+    NodeTab *currentTab;
     int size = 0;
 
-    Tab()
+    Window()
     {
         head = nullptr;
         tail = nullptr;
-        currentPage = nullptr;
     }
 
-    void addTail(string address)
+    void addTail(Tab tab)
     {
-        NodePage *newNode = new NodePage(address);
-        currentPage = newNode;
+        NodeTab *newNode = new NodeTab(tab);
+        currentTab = newNode;
         if (tail == nullptr)
         {
             head = newNode;
@@ -39,7 +38,7 @@ public:
     {
         if (head != nullptr)
         {
-            NodePage *temp = head;
+            NodeTab *temp = head;
             head = head->next;
 
             if (head != nullptr)
@@ -51,12 +50,13 @@ public:
                 tail = nullptr;
             }
 
+            currentTab = head;
             delete temp;
             size--;
         }
         else
         {
-            cout << "This TAB is empty." << endl;
+            cout << "This Window is empty." << endl;
         }
     }
 
@@ -64,7 +64,7 @@ public:
     {
         if (tail != nullptr)
         {
-            NodePage *temp = tail;
+            NodeTab *temp = tail;
             tail = tail->prev;
 
             if (tail != nullptr)
@@ -75,38 +75,34 @@ public:
             {
                 head = nullptr;
             }
+            currentTab = tail;
             delete temp;
             size--;
         }
         else
         {
-            cout << "This TAB is empty." << endl;
+            cout << "This Window is empty." << endl;
         }
     }
 
     void deleteCurrent()
     {
-        if (head == nullptr)
+        if (currentTab == head)
         {
-            cout << "Khong co Page nao de xoa." << endl;
-            return;
-        }
-        if (currentPage == head)
-        {
-            currentPage = currentPage->next;
+            currentTab = currentTab->next;
             deleteHead();
         }
-        else if (currentPage == tail)
+        else if (currentTab == tail)
         {
-            currentPage = currentPage->prev;
+            currentTab = currentTab->prev;
             deleteTail();
         }
         else
         {
-            NodePage *temp = currentPage;
-            currentPage = currentPage->prev;
-            currentPage->next = temp->next;
-            temp->next->prev = currentPage;
+            NodeTab *temp = currentTab;
+            currentTab = currentTab->prev;
+            currentTab->next = temp->next;
+            temp->next->prev = currentTab;
             delete temp;
             size--;
         }
@@ -114,13 +110,14 @@ public:
 
     void display()
     {
-        NodePage *current = head;
+        NodeTab *current = head;
         int i = 1;
-        cout << "This Tab contains: " << endl;
+        cout << "This Window contains: " << endl;
         while (current != nullptr)
         {
-            cout << "Page " << i << " : " << current->url << endl;
+            cout << "Tab " << i << " : ";
             i++;
+            current->tab.display();
             current = current->next;
         }
         cout << endl;
@@ -128,29 +125,27 @@ public:
 
     void moveNext()
     {
-        if (currentPage->next == nullptr)
+        if (currentTab->next == nullptr)
         {
-            cout << "You are at the last Page." << endl;
+            cout << "You are at the last Tab." << endl;
         }
         else
-            currentPage = currentPage->next;
+            currentTab = currentTab->next;
     }
     void moveBack()
     {
-        if (currentPage->prev == nullptr)
-        {
-            cout << "You are at the first Page." << endl;
-        }
+        if (currentTab->prev == nullptr)
+            cout << "You are at the first Tab." << endl;
         else
-            currentPage = currentPage->prev;
+            currentTab = currentTab->prev;
     }
 
     int getCurrentIndex()
     {
         int i = 1;
-        for (NodePage *p = head; p != nullptr; p = p->next)
+        for (NodeTab* p = head; p != nullptr; p = p->next)
         {
-            if (p == currentPage)
+            if (p == currentTab)
             {
                 return i;
             }
