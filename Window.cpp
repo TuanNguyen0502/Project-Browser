@@ -1,6 +1,20 @@
 #include <iostream>
 using namespace std;
-#include "NodeTab.cpp"
+#include "Tab.cpp"
+
+struct NodeTab
+{
+    Tab tab;
+    NodeTab *next;
+    NodeTab *prev;
+
+    NodeTab(Tab val)
+    {
+        tab = val;
+        next = nullptr;
+        prev = nullptr;
+    }
+};
 
 class Window
 {
@@ -85,8 +99,13 @@ public:
         }
     }
 
-    void deleteCurrent()
+    bool deleteCurrent()
     {
+        if (head->next == nullptr)
+        {
+            cout << "You cannot delete the only existed Tab !!!" << endl << endl;
+            return false;
+        }
         if (currentTab == head)
         {
             currentTab = currentTab->next;
@@ -106,6 +125,7 @@ public:
             delete temp;
             size--;
         }
+        return true;
     }
 
     void display()

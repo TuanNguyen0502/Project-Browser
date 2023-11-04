@@ -1,6 +1,19 @@
 #include <iostream>
 using namespace std;
-#include "NodePage.cpp"
+
+struct NodePage
+{
+    string url;
+    NodePage *next;
+    NodePage *prev;
+
+    NodePage(string val)
+    {
+        url = val;
+        next = nullptr;
+        prev = nullptr;
+    }
+};
 
 class Tab
 {
@@ -14,7 +27,7 @@ public:
     {
         head = nullptr;
         tail = nullptr;
-        currentPage = nullptr;
+        currentPage = new NodePage("NULL");
     }
 
     void addTail(string address)
@@ -88,7 +101,7 @@ public:
     {
         if (head == nullptr)
         {
-            cout << "Khong co Page nao de xoa." << endl;
+            cout << "Khong co Page nao de xoa." << endl << endl;
             return;
         }
         if (currentPage == head)

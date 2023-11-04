@@ -99,6 +99,35 @@ public:
         }
     }
 
+    bool deleteCurrent()
+    {
+        if (head->next == nullptr)
+        {
+            cout << "You cannot delete the only existed Window !!!" << endl << endl;
+            return false;
+        }
+        if (currentWindow == head)
+        {
+            currentWindow = currentWindow->next;
+            deleteHead();
+        }
+        else if (currentWindow == tail)
+        {
+            currentWindow = currentWindow->prev;
+            deleteTail();
+        }
+        else
+        {
+            NodeWindow *temp = currentWindow;
+            currentWindow = currentWindow->prev;
+            currentWindow->next = temp->next;
+            temp->next->prev = currentWindow;
+            delete temp;
+            size--;
+        }
+        return true;
+    }
+
     void display()
     {
         NodeWindow *current = head;
