@@ -2,31 +2,33 @@
 using namespace std;
 #include "ListWindow.cpp"
 #include "ListHistory.cpp"
+#include "ListBookmark.cpp"
 
 void printMenu()
 {
     // 68
-    cout << "==========================   MENU TABLE   ==========================" << endl;
-    cout << "|| Press W: New Window.    Press T: New Tab.   Press P: New Page. ||" << endl;
-    cout << "|| Press 1: Back Window.   Press 2: Next Window.                  ||" << endl;
-    cout << "|| Press 3: Back Tab.      Press 4: Next Tab.                     ||" << endl;
-    cout << "|| Press 5: Back Page.     Press 6: Next Page.                    ||" << endl;
-    cout << "|| Press 7: Delete this Window.                                   ||" << endl;
-    cout << "|| Press 8: Delete this Tab.                                      ||" << endl;
-    cout << "|| Press 9: Delete this Page.                                     ||" << endl;
-    cout << "|| Press H: See History.   Press I: See this Window Information.  ||" << endl;
-    cout << "|| Press X. Close Program.                                        ||" << endl;
-    cout << "====================================================================" << endl;
+    cout << endl;
+    cout << "===============================          MENU TABLE           ===============================" << endl;
+    cout << "||                                                                                         ||" << endl;
+    cout << "|| Press W: New Window.            Press T: New Tab.           Press P: New Page.          ||" << endl;
+    cout << "|| Press 1: Back Window.           Press 2: Next Window.       Press 7: Delete this Window.||" << endl;
+    cout << "|| Press 3: Back Tab.              Press 4: Next Tab.          Press 8: Delete this Tab.   ||" << endl;
+    cout << "|| Press 5: Back Page.             Press 6: Next Page.         Press 9: Delete this Page.  ||" << endl;
+    cout << "|| Press I: See this Window Information.                       Press H: See History.       ||" << endl;
+    cout << "|| Press B: Insert this Page to Bookmark.                      Press M: Go to Bookmark.    ||" << endl;
+    cout << "||                                                                                         ||" << endl;
+    cout << "||                                 Press X. Close Program.                                 ||" << endl;
+    cout << "=============================================================================================" << endl;
     cout << endl;
 }
 
 void printChar(int num)
 {
     cout << " ";
-    int size = 31 - num - 1;
+    int size = 31 - num;
     for (int i = 0; i < size; i++)
     {
-        cout << "*";
+        cout << "-";
     }
     cout << endl;
 }
@@ -35,9 +37,12 @@ int main()
 {
     ListWindow listWindow;
     ListHistory listHistory;
+    ListBookmark listBookmark;
+
     Window w1;
     listWindow.addTail(w1);
     listHistory.addTail("Ban da tao mot Window moi.");
+
     Tab t1;
     listWindow.currentWindow->window.addTail(t1);
     listHistory.addTail("Ban da tao mot Tab moi.");
@@ -45,11 +50,13 @@ int main()
     char choose;
     do
     {
+        listBookmark.display();
+
         printMenu();
-        cout << "  ************************   WINDOW: " << listWindow.getCurrentIndex();
+        cout << "-------------------------------          WINDOW: " << listWindow.getCurrentIndex() << "            ";
         printChar(1);
 
-        cout << "  ************************    TAB:   " << listWindow.currentWindow->window.getCurrentIndex();
+        cout << "-------------------------------          TAB:    " << listWindow.currentWindow->window.getCurrentIndex() << "            ";
         printChar(1);
 
         string pageName;
@@ -61,7 +68,7 @@ int main()
         {
             pageName = listWindow.currentWindow->window.currentTab->tab.currentPage->url;
         }
-        cout << "  ************************     Page: " << pageName;
+        cout << "-------------------------------          Page:   " << pageName << "            ";
         printChar(pageName.size());
 
         cout << "Moi nhap lua chon: ";
@@ -246,6 +253,17 @@ int main()
         {
             system("CLS");
             listWindow.currentWindow->window.display();
+            break;
+        }
+
+        case 'B':
+        {
+            system("CLS");
+            listBookmark.addTail(listWindow.currentWindow->window.currentTab->tab.currentPage->url);
+            break;
+        }
+        case 'M':
+        {
             break;
         }
 
