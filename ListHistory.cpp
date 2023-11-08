@@ -111,11 +111,12 @@ public:
 
     void displayLatest()
     {
-        cout << tail->his << endl;
+        cout << tail->his << endl << endl;
     }
+    
     void displayOldest()
     {
-        cout << head->his << endl;
+        cout << head->his << endl << endl;
     }
 
     void moveNext()
@@ -127,6 +128,7 @@ public:
         else
             currentHistory = currentHistory->next;
     }
+    
     void moveBack()
     {
         if (currentHistory->prev == nullptr)

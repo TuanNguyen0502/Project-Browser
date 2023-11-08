@@ -140,23 +140,26 @@ public:
         cout << endl;
     }
 
-    void moveNext()
+    bool moveNext()
     {
         if (currentWindow->next == nullptr)
         {
-            cout << "You are at the last Window." << endl;
+            return false;
         }
         else
             currentWindow = currentWindow->next;
+        return true;
+
     }
-    void moveBack()
+    bool moveBack()
     {
         if (currentWindow->prev == nullptr)
         {
-            cout << "You are at the first Window." << endl;
+            return false;
         }
         else
             currentWindow = currentWindow->prev;
+        return true;
     }
 
     int getCurrentIndex()

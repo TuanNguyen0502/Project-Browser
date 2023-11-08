@@ -97,12 +97,12 @@ public:
         }
     }
 
-    void deleteCurrent()
+    bool deleteCurrent()
     {
         if (head == nullptr)
         {
-            cout << "Khong co Page nao de xoa." << endl << endl;
-            return;
+            cout << "There isn't any Page to delete." << endl << endl;
+            return false;
         }
         if (currentPage == head)
         {
@@ -123,6 +123,7 @@ public:
             delete temp;
             size--;
         }
+        return true;
     }
 
     void display()
@@ -139,23 +140,25 @@ public:
         cout << endl;
     }
 
-    void moveNext()
+    bool moveNext()
     {
         if (currentPage->next == nullptr)
         {
-            cout << "You are at the last Page." << endl;
+            return false;
         }
         else
             currentPage = currentPage->next;
+        return true;
     }
-    void moveBack()
+    bool moveBack()
     {
         if (currentPage->prev == nullptr)
         {
-            cout << "You are at the first Page." << endl;
+            return false;
         }
         else
             currentPage = currentPage->prev;
+        return true;
     }
 
     int getCurrentIndex()
@@ -169,6 +172,20 @@ public:
             }
             i++;
         }
+    }
+
+    string getDataAtIndex(int index) {
+        if (index < 0 || index >= size || size == 0) {
+            cerr << "Index is out of bounds or the list is empty." << endl;
+            return "Error";
+        }
+
+        NodePage* current = head;
+        for (int i = 0; i < index; i++) {
+            current = current->next;
+        }
+
+        return current->url;
     }
 
     bool isEmpty()

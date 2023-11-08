@@ -143,21 +143,23 @@ public:
         cout << endl;
     }
 
-    void moveNext()
+    bool moveNext()
     {
         if (currentTab->next == nullptr)
         {
-            cout << "You are at the last Tab." << endl;
+            return false;
         }
         else
             currentTab = currentTab->next;
+        return true;
     }
-    void moveBack()
+    bool moveBack()
     {
         if (currentTab->prev == nullptr)
-            cout << "You are at the first Tab." << endl;
+            return false;
         else
             currentTab = currentTab->prev;
+        return true;
     }
 
     int getCurrentIndex()

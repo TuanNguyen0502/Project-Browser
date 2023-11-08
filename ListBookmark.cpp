@@ -139,7 +139,7 @@ public:
             i++;
             current = current->next;
         }
-        cout << endl;
+        cout << endl << endl;
     }
 
     void moveNext()
@@ -151,6 +151,7 @@ public:
         else
             currentPage = currentPage->next;
     }
+
     void moveBack()
     {
         if (currentPage->prev == nullptr)
@@ -177,5 +178,66 @@ public:
     bool isEmpty()
     {
         return head == nullptr;
+    }
+
+    int getIndex(string value) {
+        NodeBookmark* current = head;
+        int index = 0;
+
+        while (current != nullptr) {
+            if (current->url == value) {
+                return index;
+            }
+            current = current->next;
+            index++;
+        }
+        return -1;
+    }
+
+    string getDataAtIndex(int index) {
+        if (index < 0 || index >= size || size == 0) {
+            cerr << "Index is out of bounds or the list is empty." << endl;
+            return "Error";
+        }
+
+        NodeBookmark* current = head;
+        for (int i = 0; i < index; i++) {
+            current = current->next;
+        }
+
+        return current->url;
+    }
+
+    void deleteNode(int index) {
+        if (index < 0 || index >= size || size == 0) {
+            cout << "Deletion at index " << index << " is not possible." << endl;
+            return;
+        }
+
+        NodeBookmark* current = head;
+        for (int i = 0; i < index; i++) {
+            current = current->next;
+        }
+
+        if (current == currentPage)
+        {
+            deleteCurrent();
+            return;
+        }
+        if (current == head) {
+            head = current->next;
+            if (head) {
+                head->prev = nullptr;
+            }
+        } else if (current == tail) {
+            tail = current->prev;
+            tail->next = nullptr;
+        } else {
+            current->prev->next = current->next;
+            current->next->prev = current->prev;
+        }
+
+        delete current;
+        size--;
     }
 };
