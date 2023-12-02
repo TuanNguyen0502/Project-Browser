@@ -47,6 +47,16 @@ void SET_COLOR(int color)
     }
 }
 
+void printGG()
+{
+ 	cout << " \t\t\t_______ _______ _______ _______ ___     _______ " << endl;
+	cout << "\t\t\t|       |       |       |       |   |   |       |" << endl;
+	cout << "\t\t\t|    ___|   _   |   _   |    ___|   |   |    ___|" << endl;
+	cout << "\t\t\t|   | __|  | |  |  | |  |   | __|   |   |   |___ " << endl;
+	cout << "\t\t\t|   ||  |  |_|  |  |_|  |   ||  |   |___|    ___|" << endl;
+	cout << "\t\t\t|   |_| |       |       |   |_| |       |   |___ " << endl;
+	cout << "\t\t\t|_______|_______|_______|_______|_______|_______| " << endl << endl;
+}
 int main()
 {
     ListWindow listWindow;
@@ -64,6 +74,9 @@ int main()
     char choose;
     do
     {
+    	SET_COLOR(5);
+    	printGG();
+    	
         SET_COLOR(3);
         printMenu();
 
